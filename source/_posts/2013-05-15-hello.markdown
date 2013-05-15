@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Hello..."
+date: 2013-05-15 21:53
+comments: true
+categories: Misc
+---
+
+Hello there. I just recognized, that I need some kind of blog to not forget things I do/like/don't like. Most of these things have something to do with web development since that's what I do.
+
+I always wanted to work with [Jekyll] and [Octopress] made me use it in minutes until now. So, let's see, where this is going.
+
+Marc
+
+[Jekyll]: https://github.com/mojombo/jekyll
+[Octopress]: http://octopress.org/
