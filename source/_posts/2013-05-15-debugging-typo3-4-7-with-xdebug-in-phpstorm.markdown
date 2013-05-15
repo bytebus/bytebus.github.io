@@ -13,14 +13,14 @@ categories:
 - PHPStorm
 ---
 
-Since I'm currently working an Extbase-Extension for TYPO3 4.7 I had to debug some backend code of my extension. Since I didn't find anything on how to set this up with [Xdebug][1] and [PHPStorm][2], I'll write it down here.
+Since I'm currently working an Extbase-Extension for TYPO3 4.7, I had to debug some backend code. I didn't find anything on how to set this up with [Xdebug][1] and [PHPStorm][2], so I'll write it down here.
 
 <!-- more -->
 
 
 ## Requirements ##
 
-At first, XDebug has to be installed and configured to work with PHPStorm, which works out fine with the [official docs][3]. I assume, that Xdebug and PHPStorm are working and tested.
+XDebug has to be installed and configured to work with PHPStorm, which works out fine with the [official docs][3]. I assume that Xdebug and PHPStorm are tested and working.
 
 
 ## Symlinks ##
