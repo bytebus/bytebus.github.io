@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[blog.byteb.us]]></title>
-  <link href="http://blog.byteb.us/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Misc | blog.byteb.us]]></title>
+  <link href="http://blog.byteb.us/blog/categories/misc/atom.xml" rel="self"/>
   <link href="http://blog.byteb.us/"/>
   <updated>2013-05-15T23:04:46+02:00</updated>
   <id>http://blog.byteb.us/</id>

@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://bytebus.github.io/sitemap.xml 
+Sitemap: http://blog.byteb.us/sitemap.xml 
