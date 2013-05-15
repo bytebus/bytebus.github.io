@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Debugging Typo3 4.7 with Xdebug in PHPStorm - blog.byteb.us</title>
+  <meta name="author" content="Marc Löhe">
+
+  
+  <meta name="description" content="Since I&rsquo;m currently working an Extbase-Extension for TYPO3 4.7 I had to debug some backend code of my extension. Since I didn&rsquo;t find &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.byteb.us/blog/2013/05/15/debugging-typo3-4-7-with-xdebug-in-phpstorm">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="blog.byteb.us" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.byteb.us" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Debugging Typo3 4.7 With Xdebug in PHPStorm</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-15T23:17:00+02:00" pubdate data-updated="true">05/15/13</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Since I&rsquo;m currently working an Extbase-Extension for TYPO3 4.7 I had to debug some backend code of my extension. Since I didn&rsquo;t find anything on how to set this up with <a href="http://xdebug.org/">Xdebug</a> and <a href="http://www.jetbrains.com/phpstorm/">PHPStorm</a>, I&rsquo;ll write it down here.</p>
+
+<!-- more -->
+
+
+<h2>Requirements</h2>
+
+<p>At first, XDebug has to be installed and configured to work with PHPStorm, which works out fine with the <a href="https://www.jetbrains.com/phpstorm/webhelp/configuring-xdebug.html">official docs</a>. I assume, that Xdebug and PHPStorm are working and tested.</p>
+
+<h2>Symlinks</h2>
+
+<p>Typo3 4.7 can be installed as usual, but you want to physically put the <code>typo3_src</code> folder into your webroot instead of just symlinking to it. This caused quite some headache while setting it up.</p>
+
+<p>The webroot folder should look like this regarding symlinks:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>webroot/
+</span><span class='line'>  typo3_src/
+</span><span class='line'>  t3lib &gt; typo3_src/t3lib/
+</span><span class='line'>  typo3 &gt; typo3_src/typo3/
+</span><span class='line'>  index.php &gt; typo3_src/index.php</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>PHPStorm setup</h2>
+
+<h3>Directories</h3>
+
+<p>When setting up the PHPStorm project you should choose your webroot folder as the <em>Content root</em> of your project. It would have been even better to select your plugin folder as <em>Content root</em> and only include the core sources, but there was no obvious way to get it done.</p>
+
+<p>You can check this by opening the project settings in the Menu <em>Directories</em>.</p>
+
+<h3>Path mappings</h3>
+
+<p>In the symlink setup above, the folders <code>t3lib</code> and <code>typo3</code> as well as the <code>ìndex.php</code> were symlinked inside the <code>typo3_src</code> folder. We don&rsquo;t have to make a physical copy of them that way, but we have to tell PHPStorm about it.</p>
+
+<p>You can do this in the project settings, look for the submenu <em>Servers</em> inside <em>PHP</em>. You will have to setup a server now if you haven&rsquo;t already. Activate the &ldquo;Use path mappings&rdquo; option. For each path in your project, you can now specify it&rsquo;s absolute path by filling the column in the mappings table. Specify the absolute path inside <code>typo3_src</code> for the two symlinked directories and the symlinked <code>index.php</code>.</p>
+
+<p>Set up theses mappings:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>------------------------------------------------------
+</span><span class='line'>Project path &gt; Absolute path on the server
+</span><span class='line'>------------------------------------------------------
+</span><span class='line'>/path/to/webroot &gt; /path/to/webroot
+</span><span class='line'>  t3lib &gt; /path/to/webroot/typo3_src/t3lib
+</span><span class='line'>  typo3 &gt; /path/to/webroot/typo3_src/typo
+</span><span class='line'>  index.php &gt; /path/to/webroot/typo3_src/index.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice that the path for the webroot was mapped to it&rsquo;s own path. While testing this seemed to be necessary.</p>
+
+<h3>One more mapping</h3>
+
+<p>Also check the URL mapping by navigating to <em>Deployment</em> in your project settings. You will have to create a deployment server configuration if you haven&rsquo;t already. Make sure, that you have a mapping for your webroot by entering your webroot&rsquo;s path into the <code>Local path</code> field and <code>/</code> into the <code>Web path on server: xyz</code> field.</p>
+
+<h2>That&rsquo;s it!</h2>
+
+<p>The setup isn&rsquo;t too complicated, but there are enough possibilities to make something wrong, which I apparently did in almost all cases.</p>
+
+<p>You can use <a href="http://www.jetbrains.com/phpstorm/marklets/">bookmarklets</a> and breakpoints to quickly debug your code on the fly. If you are not sure where to start, look for the <code>webroot/index.php</code> for the frontend and <code>webroot/typo3/index.php</code> to get you started. Also have a look at the <em>Network</em> tab of your devtools: a lot of requests are initiated on other endpoints like <code>webroot/typo3/alt_doc.php</code> or <code>webroot/typo3/mod.php</code> and a lot of others.</p>
+
+<p>Also stay aware of the fact that the TYPO3 backend is made up of nested iFrames (which is slightly awkward&hellip;). If you want to reinitiate a request, it is probably better to right click into the concerned area and choose <em>Reload frame</em> than reloading the whole page which leaves you with the dashboard.</p>
+
+<p>After writing down all of this I have to add one more thing: debugging software really is the most effective way to effectively learn, what it does. So yes, it is worth all the hassle of setting it up.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Marc Löhe</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-15T23:17:00+02:00" pubdate data-updated="true">05/15/13</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/backend/'>Backend</a>, <a class='category' href='/blog/categories/cms/'>CMS</a>, <a class='category' href='/blog/categories/debugging/'>Debugging</a>, <a class='category' href='/blog/categories/php/'>PHP</a>, <a class='category' href='/blog/categories/phpstorm/'>PHPStorm</a>, <a class='category' href='/blog/categories/typo3/'>TYPO3</a>, <a class='category' href='/blog/categories/xdebug/'>Xdebug</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.byteb.us/blog/2013/05/15/debugging-typo3-4-7-with-xdebug-in-phpstorm/" data-via="boundaryfunc" data-counturl="http://blog.byteb.us/blog/2013/05/15/debugging-typo3-4-7-with-xdebug-in-phpstorm/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/15/hello/" title="Previous Post: Hello...">&laquo; Hello...</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/15/debugging-typo3-4-7-with-xdebug-in-phpstorm/">Debugging Typo3 4.7 with Xdebug in PHPStorm</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/15/hello/">Hello...</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/bytebus">@bytebus</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'bytebus',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Marc Löhe <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>, customized with <a href="https://github.com/mjhea0/whiterspace">whiterspace</a>.</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

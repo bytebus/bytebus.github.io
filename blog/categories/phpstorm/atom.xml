@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[blog.byteb.us]]></title>
-  <link href="http://blog.byteb.us/atom.xml" rel="self"/>
+  <title><![CDATA[Category: PHPStorm | blog.byteb.us]]></title>
+  <link href="http://blog.byteb.us/blog/categories/phpstorm/atom.xml" rel="self"/>
   <link href="http://blog.byteb.us/"/>
   <updated>2013-05-16T00:17:13+02:00</updated>
   <id>http://blog.byteb.us/</id>
@@ -33,17 +33,13 @@
 
 <p>The webroot folder should look like this regarding symlinks:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>webroot/
-</span><span class='line'>  typo3_src/
-</span><span class='line'>  t3lib &gt; typo3_src/t3lib/
-</span><span class='line'>  typo3 &gt; typo3_src/typo3/
-</span><span class='line'>  index.php &gt; typo3_src/index.php</span></code></pre></td></tr></table></div></figure>
-
+<p><code>
+webroot/
+  typo3_src/
+  t3lib &gt; typo3_src/t3lib/
+  typo3 &gt; typo3_src/typo3/
+  index.php &gt; typo3_src/index.php
+</code></p>
 
 <h2>PHPStorm setup</h2>
 
@@ -61,21 +57,15 @@
 
 <p>Set up theses mappings:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>------------------------------------------------------
-</span><span class='line'>Project path &gt; Absolute path on the server
-</span><span class='line'>------------------------------------------------------
-</span><span class='line'>/path/to/webroot &gt; /path/to/webroot
-</span><span class='line'>  t3lib &gt; /path/to/webroot/typo3_src/t3lib
-</span><span class='line'>  typo3 &gt; /path/to/webroot/typo3_src/typo
-</span><span class='line'>  index.php &gt; /path/to/webroot/typo3_src/index.php</span></code></pre></td></tr></table></div></figure>
+<h2>```</h2>
 
+<h2>Project path > Absolute path on the server</h2>
+
+<p>/path/to/webroot > /path/to/webroot
+  t3lib > /path/to/webroot/typo3_src/t3lib
+  typo3 > /path/to/webroot/typo3_src/typo
+  index.php > /path/to/webroot/typo3_src/index.php
+```</p>
 
 <p>Notice that the path for the webroot was mapped to it&rsquo;s own path. While testing this seemed to be necessary.</p>
 
@@ -92,19 +82,6 @@
 <p>Also stay aware of the fact that the TYPO3 backend is made up of nested iFrames (which is slightly awkward&hellip;). If you want to reinitiate a request, it is probably better to right click into the concerned area and choose <em>Reload frame</em> than reloading the whole page which leaves you with the dashboard.</p>
 
 <p>After writing down all of this I have to add one more thing: debugging software really is the most effective way to effectively learn, what it does. So yes, it is worth all the hassle of setting it up.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello...]]></title>
-    <link href="http://blog.byteb.us/blog/2013/05/15/hello/"/>
-    <updated>2013-05-15T21:53:00+02:00</updated>
-    <id>http://blog.byteb.us/blog/2013/05/15/hello</id>
-    <content type="html"><![CDATA[<p>Hello there. I just recognized, that I need some kind of blog to not forget things I do/like/don&rsquo;t like. Most of these things have something to do with web development since that&rsquo;s what I do.</p>
-
-<p>I always wanted to work with <a href="https://github.com/mojombo/jekyll">Jekyll</a> and <a href="http://octopress.org/">Octopress</a> made me use it in minutes until now. So, let&rsquo;s see, where this is going.</p>
-
-<p>Marc</p>
 ]]></content>
   </entry>
   
